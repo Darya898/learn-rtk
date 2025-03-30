@@ -1,0 +1,53 @@
+.modal{
+
+    position: fixed; /* Фиксированное положение */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(255 255 255 / 38%); /* Полупрозрачный фон */
+    display: flex; /* Используем flexbox для центрирования */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    z-index: 1000; /* Устанавливаем высокий z-index, чтобы модалка была поверх других элементов */
+}
+.modal-content{
+    background: #141414;
+    padding: 20px;
+    color:#fff;
+    border-radius: 8px;
+
+    min-height: 300px;
+    max-width: 600px;
+}
+@media screen and (min-width: 390px) {
+    .modal-content{
+        background: #141414;
+        padding: 8px 18px;
+        color:#fff;
+        border-radius: 6px;
+        width: 90%;
+        min-height: 300px;
+    }
+}
+@media screen and (min-width: 890px) {
+.modal-content {
+    background: #141414;
+    padding: 18px 28px;
+    color: #fff;
+    border-radius: 6px;
+    width: 90%;
+    min-height: 300px;
+}
+}
+@media screen and (max-width: 389px) {
+    .modal-content{
+        background: #141414;
+        padding: 4px 8px;
+        color:#fff;
+        border-radius: 6px;
+        width: 96%;
+        min-height: 300px;
+    }
+
+}

@@ -1,0 +1,21 @@
+import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
+import {sortRecipeList} from "../../features/recipes/recipesSlice.js";
+
+const SortOption = () => {
+    const [sortData,setSortData]=useState('');
+    const dispatch=useDispatch();
+    const getSort=(e)=>{
+        setSortData(e.target.value);
+        dispatch(sortRecipeList(e.target.value));
+    }
+    return (
+        <select value={sortData} onChange={(e) => getSort(e)}>
+            <option value="" disabled hidden>Сортировка</option>
+            <option value="bottom">От А до Я</option>
+            <option value="top">От Я до А</option>
+        </select>
+    );
+};
+
+export default SortOption;

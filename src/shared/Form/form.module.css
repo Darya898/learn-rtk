@@ -1,0 +1,82 @@
+.form{
+    display: flex;
+    flex-direction: column;
+}
+.label{
+    background: transparent;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
+.textarea{
+    background: transparent;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    resize: none;
+}
+.option{
+    background: #141414;
+}
+.btn-group{
+    margin-top: 20px;
+    margin-left: auto;
+}
+.btn{
+    border: none;
+    border-radius: 8px;
+    padding: 18px 24px;
+    background: var(--red-45);
+    cursor: pointer;
+    color:#fff;
+    font-size: 16px;
+}
+.btn-cancel{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color:#fff;
+    font-size: 16px;
+    padding: 18px 24px;
+}
+.message{
+    color: var(--red-45);
+    font-size: 16px;
+    padding: 6px 2px;
+    height: 16px;
+}
+.option-disabled{
+    color:#ccc
+}
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+@media screen and (min-width: 390px) {
+    .btn {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        background: var(--red-45);
+        cursor: pointer;
+        color: #fff;
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 389px) {
+    .btn {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        background: var(--red-45);
+        cursor: pointer;
+        color: #fff;
+        font-size: 16px;
+    }
+}

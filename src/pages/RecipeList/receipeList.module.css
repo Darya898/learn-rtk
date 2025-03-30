@@ -1,0 +1,8 @@
+.name{
+    font-size: 28px;
+}
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
