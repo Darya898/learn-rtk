@@ -1,42 +1,40 @@
-import  {useState} from 'react';
-import styles from './form.module.css'
+import {useState} from 'react';
+import styles from './Form.module.css'
 import {useDispatch} from "react-redux";
 import ApplyBtn from "./img/ApplyBtn.jsx";
 import {addRecipe, editRecipe} from "../../features/recipes/recipesSlice.js";
 
 
-const Form = ({clickOutside,edit}) => {
-    const [message, setMessage]=useState('');
-    const [recipe,setRecipe]=useState(edit)
-    const [visible,setVisible]=useState(false);
-    const [ingridient,setIngridient]=useState('');
-    const [step,setStep]=useState('');
-    const [visibleStepBtn,setVisibleStepBtn]=useState(false);
-    const dispatch=useDispatch();
-    const addItemRecipe=()=>{
-        setRecipe(prev=>({...prev,ingredients:[...prev.ingredients,ingridient]}));
+const Form = ({clickOutside, edit}) => {
+    const [message, setMessage] = useState('');
+    const [recipe, setRecipe] = useState(edit)
+    const [visible, setVisible] = useState(false);
+    const [ingridient, setIngridient] = useState('');
+    const [step, setStep] = useState('');
+    const [visibleStepBtn, setVisibleStepBtn] = useState(false);
+    const dispatch = useDispatch();
+    const addItemRecipe = () => {
+        setRecipe(prev => ({...prev, ingredients: [...prev.ingredients, ingridient]}));
         setIngridient('');
         setVisible(false);
     }
-    const addItemStep=()=>{
-        setRecipe(prev=>({...prev,steps:[...prev.steps,step]}));
+    const addItemStep = () => {
+        setRecipe(prev => ({...prev, steps: [...prev.steps, step]}));
         setStep('');
         setVisibleStepBtn(false);
 
     }
-    const handlerSubmit=(e)=>{
+    const handlerSubmit = (e) => {
         e.preventDefault();
-        if(recipe.name&&recipe.steps&&recipe.ingredients){
+        if (recipe.name && recipe.steps && recipe.ingredients) {
             clickOutside();
             setMessage('');
-            if(edit.id){
+            if (edit.id) {
                 dispatch(editRecipe(recipe))
+            } else {
+                dispatch(addRecipe({...recipe, id: new Date().getTime()}))
             }
-            else{
-                dispatch(addRecipe({...recipe, id:new Date().getTime()}))
-            }
-        }
-        else{
+        } else {
             setMessage('Заполните все поля')
         }
     }
@@ -46,22 +44,23 @@ const Form = ({clickOutside,edit}) => {
             <form onSubmit={handlerSubmit} className={styles.form}>
                 <label className={styles.label} htmlFor="nameRecipe">Название</label>
                 <input id="nameRecipe" value={recipe.name}
+                       className={styles.field}
                        onChange={(e) => setRecipe(prev => ({...prev, name: e.target.value}))}></input>
                 <div className={styles.button}><h5>Ингридиенты</h5>{!visible &&
                     <button onClick={() => setVisible(true)}>Добавить</button>}</div>
                 {visible &&
                     <>
-                        <label className={styles.label} htmlFor="ingridient">Ингридиент</label>
-                        <div><input id="ingridient" value={ingridient}
-                                    onChange={(e) => setIngridient(e.target.value)}></input>
-                            <button onClick={addItemRecipe}>
+                        <div>
+                            <input className={styles.field} id="ingridient" value={ingridient}
+                                   onChange={(e) => setIngridient(e.target.value)}></input>
+                            <button className={styles['btn-add']} onClick={addItemRecipe}>
                                 <ApplyBtn></ApplyBtn>
                             </button>
                         </div>
                     </>
                 }
                 <ul>
-                    {recipe.ingredients.map((ingridient,index) =>
+                    {recipe.ingredients.map((ingridient, index) =>
                         (<li key={index}>{ingridient}</li>)
                     )}
                 </ul>
@@ -70,17 +69,17 @@ const Form = ({clickOutside,edit}) => {
                     <button onClick={() => setVisibleStepBtn(true)}>Добавить</button>}</div>
                 {visibleStepBtn &&
                     <>
-                        <label className={styles.label} htmlFor="step">Шаги</label>
-                        <div><input id="step" value={step}
-                                    onChange={(e) => setStep(e.target.value)}></input>
-                            <button onClick={addItemStep}>
+                        <div>
+                            <input className={styles.field} id="step" value={step}
+                                   onChange={(e) => setStep(e.target.value)}></input>
+                            <button className={styles['btn-add']} onClick={addItemStep}>
                                 <ApplyBtn></ApplyBtn>
                             </button>
                         </div>
                     </>
                 }
                 <ul>
-                    {recipe.steps.map((step,index) =>
+                    {recipe.steps.map((step, index) =>
                         (<li key={index}>{step}</li>)
                     )}
                 </ul>

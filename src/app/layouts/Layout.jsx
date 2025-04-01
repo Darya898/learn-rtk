@@ -1,6 +1,6 @@
 import {Outlet} from "react-router-dom";
-import Nav from "../../shared/Nav/Nav.jsx";
-import React from "react";
+import Nav from "../../widgets/Nav/ui/Nav.jsx";
+
 const Layout = () => {
     return (
         <div>
