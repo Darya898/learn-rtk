@@ -1,13 +1,15 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import styles from './Form.module.css'
 import {useDispatch} from "react-redux";
-import ApplyBtn from "./img/ApplyBtn.jsx";
-import {addRecipe, editRecipe} from "../../features/recipes/recipesSlice.js";
+import ApplyBtn from "@/shared/Form/img/ApplyBtn.tsx";
+import {addRecipe, editRecipe} from "../../features/recipes/recipesSlice.ts";
+import {Recipe} from "@/shared/types/type.ts";
+import {ChildProps} from "@/shared/FormDelete/FormDelete.tsx";
 
 
-const Form = ({clickOutside, edit}) => {
+const Form: React.FC<ChildProps>  = ({clickOutside, edit}) => {
     const [message, setMessage] = useState('');
-    const [recipe, setRecipe] = useState(edit)
+    const [recipe, setRecipe] = useState<Recipe>(edit)
     const [visible, setVisible] = useState(false);
     const [ingridient, setIngridient] = useState('');
     const [step, setStep] = useState('');
@@ -24,13 +26,13 @@ const Form = ({clickOutside, edit}) => {
         setVisibleStepBtn(false);
 
     }
-    const handlerSubmit = (e) => {
+    const handlerSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (recipe.name && recipe.steps && recipe.ingredients) {
             clickOutside();
             setMessage('');
             if (edit.id) {
-                dispatch(editRecipe(recipe))
+                dispatch(editRecipe(recipe));
             } else {
                 dispatch(addRecipe({...recipe, id: new Date().getTime()}))
             }
@@ -84,7 +86,7 @@ const Form = ({clickOutside, edit}) => {
                     )}
                 </ul>
 
-                <div className={styles['message']}> {message}< /div>
+                <div className={styles['message']}> {message}</div>
                 <div className={styles['btn-group']}>
                     <button className={styles['btn-cancel']} onClick={clickOutside}>Отмена</button>
                     <button className={styles.btn} type="submit">Сохранить</button>

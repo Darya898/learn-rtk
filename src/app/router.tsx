@@ -1,8 +1,8 @@
-import Layout from "./layouts/Layout.jsx";
-import RecipeList from "../pages/RecipeList/ui/RecipeList.jsx";
+import Layout from "./layouts/Layout.tsx";
 import {createBrowserRouter} from "react-router-dom";
-import {NotFound} from "../pages/NotFound/index.jsx";
-import FavoriteList from "../pages/FavoriteList/ui/FavoriteList.jsx";
+import {NotFound} from "@/pages/NotFound/index.tsx";
+import FavoriteList from "@/pages/FavoriteList/ui/FavoriteList.tsx";
+import {RecipePage} from "@/pages/RecipePage";
 
 export const router = createBrowserRouter([
     {
@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <RecipeList/>,
+                element: <RecipePage/>,
             },
             {
                 path: '/favorits',

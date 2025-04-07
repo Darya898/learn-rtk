@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import RecipeList from "./pages/RecipeList/ui/RecipeList.jsx";
 import {RouterProvider} from "react-router-dom";
-import {router} from "./app/router.jsx";
+import {router} from "./router.tsx";
 
 
 function App() {

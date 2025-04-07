@@ -1,13 +1,18 @@
 import React from 'react';
-import {editRecipe} from "../../features/recipes/recipesSlice.js";
 import {useDispatch} from "react-redux";
-import {deleteRecipe} from "../../features/recipes/recipesSlice.js"
+import {deleteRecipe} from "@/features/recipes/recipesSlice.ts"
+import { Recipe} from "@/shared/types/type.ts";
+export interface ChildProps {
+    edit:Recipe,
+    clickOutside: () => void; // Функция, принимающая строку и ничего не возвращающая
+}
 
-const FormDelete = ({clickOutside,edit}) => {
+const FormDelete: React.FC<ChildProps> = ({clickOutside,edit}) => {
     const dispatch=useDispatch();
     const deleteRecipeItem=()=>{
-        clickOutside();
         dispatch(deleteRecipe(edit.id));
+        clickOutside();
+
     }
     return (
         <div>

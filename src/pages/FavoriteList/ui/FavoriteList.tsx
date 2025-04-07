@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getInitialListFavorite} from "../../../features/recipes/favoriteRecipesSlice.js";
-const FavoriteList = () => {
-    const {favoriteList} = useSelector(state => state.favoriteList);
+import {useDispatch} from "react-redux";
+import {getInitialListFavorite} from "@/features/recipes/recipesSlice.ts";
+import {Recipe} from "@/shared/types/type.ts";
+import {useTypedSelector} from "@/shared/hooks/TypedUseSelectorHook.ts";
+const FavoriteList:React.FC = () => {
+    const {favoriteList} = useTypedSelector(state => state);
     const dispatch = useDispatch();
     useEffect(() => {
         if (localStorage.favorite) {
@@ -12,7 +14,7 @@ const FavoriteList = () => {
     return (
         <div>
             {favoriteList && favoriteList.length ?
-                favoriteList.map(recipe => (
+                favoriteList.map((recipe:Recipe) => (
                         <li key={recipe.id}>
                             <span>{recipe.name}</span>
                             <div>Ингридиенты: {recipe.ingredients.join(',')}

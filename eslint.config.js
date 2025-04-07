@@ -16,6 +16,7 @@ export default [
         sourceType: 'module',
       },
     },
+
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
@@ -30,4 +31,9 @@ export default [
       ],
     },
   },
+  {  settings: {
+      'import/resolver': {
+        typescript: {} // Это позволит ESLint понимать ваши алиасы
+      }
+    }}
 ]

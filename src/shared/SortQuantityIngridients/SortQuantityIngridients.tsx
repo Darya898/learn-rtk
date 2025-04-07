@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {sortQuentity} from "../../features/recipes/recipesSlice.js";
+import {sortQuentity} from "../../features/recipes/recipesSlice.ts";
 import styles from './SortQuantityIngridients.module.css';
 
 const SortQuantityIngridients = () => {
     const [sortData,setSortData]=useState('');
     const dispatch=useDispatch();
-    const getSort=(e)=>{
+    const getSort=(e:React.ChangeEvent<HTMLSelectElement>)=>{
         setSortData(e.target.value);
         dispatch(sortQuentity(e.target.value));
     }
