@@ -6,7 +6,6 @@
     padding: 10px;
     margin-top: 10px;
 }
-
 .recipe-btns{
     flex-grow: 0;
 }
@@ -32,7 +31,6 @@
 .recipe-btn{
     background: transparent;
     border: none;
-
 }
 .recipe-btn:focus, .recipe-btn:focus-visible {
     outline: none;

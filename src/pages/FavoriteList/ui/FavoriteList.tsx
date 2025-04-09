@@ -1,35 +1,17 @@
-import React, {useEffect} from 'react';
-import {useDispatch} from "react-redux";
-import {getInitialListFavorite} from "@/features/recipes/recipesSlice.ts";
+import React from 'react';
 import {Recipe} from "@/shared/types/type.ts";
 import {useTypedSelector} from "@/shared/hooks/TypedUseSelectorHook.ts";
+import CardResipe from "@/entities/recipe/ui/CardResipe.tsx";
+
 const FavoriteList:React.FC = () => {
-    const {favoriteList} = useTypedSelector(state => state);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        if (localStorage.favorite) {
-            dispatch(getInitialListFavorite(JSON.parse(localStorage.favorite)))
-        }
-    }, []);
+    const favoriteList = useTypedSelector(state => state.recipesList.favoriteList);
     return (
         <div>
             {favoriteList && favoriteList.length ?
                 favoriteList.map((recipe:Recipe) => (
-                        <li key={recipe.id}>
-                            <span>{recipe.name}</span>
-                            <div>Ингридиенты: {recipe.ingredients.join(',')}
-                                <div>
-                                    <h5>Шаги приготовления</h5>
-                                    <ul>
-                                        {recipe.steps.map(step => (
-                                            <li key={step}>
-                                                {step}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        <div key={recipe.id}>
+                            <CardResipe {...recipe} />
+                        </div>
                     )
                 ) : <div>Список пуст</div>
             }

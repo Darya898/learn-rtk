@@ -5,6 +5,7 @@ interface ModalProps{
 }
 const Modal:React.FC<ModalProps> = ({children}) => {
     const modalRef=useRef(null);
+
     return (
         <div className={styles.modal}
              ref={modalRef}>

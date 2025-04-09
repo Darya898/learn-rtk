@@ -1,20 +1,27 @@
 import React, {useState} from 'react';
 import styles from './Form.module.css'
-import {useDispatch} from "react-redux";
 import ApplyBtn from "@/shared/Form/img/ApplyBtn.tsx";
-import {addRecipe, editRecipe} from "../../features/recipes/recipesSlice.ts";
+import {addRecipe, editRecipe} from "../../entities/recipe/model/recipesSlice.ts";
 import {Recipe} from "@/shared/types/type.ts";
 import {ChildProps} from "@/shared/FormDelete/FormDelete.tsx";
+import {useAppDispatch} from "@/shared/hooks/UseAppDispatch.ts";
 
 
-const Form: React.FC<ChildProps>  = ({clickOutside, edit}) => {
+const Form: React.FC<ChildProps> = ({clickOutside, edit}) => {
+
     const [message, setMessage] = useState('');
+
     const [recipe, setRecipe] = useState<Recipe>(edit)
+
     const [visible, setVisible] = useState(false);
+
     const [ingridient, setIngridient] = useState('');
+
     const [step, setStep] = useState('');
+
     const [visibleStepBtn, setVisibleStepBtn] = useState(false);
-    const dispatch = useDispatch();
+
+    const dispatch = useAppDispatch();
     const addItemRecipe = () => {
         setRecipe(prev => ({...prev, ingredients: [...prev.ingredients, ingridient]}));
         setIngridient('');
@@ -24,12 +31,11 @@ const Form: React.FC<ChildProps>  = ({clickOutside, edit}) => {
         setRecipe(prev => ({...prev, steps: [...prev.steps, step]}));
         setStep('');
         setVisibleStepBtn(false);
-
     }
-    const handlerSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (recipe.name && recipe.steps && recipe.ingredients) {
-            clickOutside();
+            clickOutside(true);
             setMessage('');
             if (edit.id) {
                 dispatch(editRecipe(recipe));
@@ -45,11 +51,15 @@ const Form: React.FC<ChildProps>  = ({clickOutside, edit}) => {
         <div>
             <form onSubmit={handlerSubmit} className={styles.form}>
                 <label className={styles.label} htmlFor="nameRecipe">Название</label>
-                <input id="nameRecipe" value={recipe.name}
+                <input id="nameRecipe"
+                       value={recipe.name}
                        className={styles.field}
                        onChange={(e) => setRecipe(prev => ({...prev, name: e.target.value}))}></input>
-                <div className={styles.button}><h5>Ингридиенты</h5>{!visible &&
-                    <button onClick={() => setVisible(true)}>Добавить</button>}</div>
+                <div className={styles.button}>
+                    <h5>Ингридиенты</h5>
+                    {!visible &&
+                    <button onClick={() => setVisible(true)}>Добавить</button>}
+                </div>
                 {visible &&
                     <>
                         <div>
@@ -66,7 +76,6 @@ const Form: React.FC<ChildProps>  = ({clickOutside, edit}) => {
                         (<li key={index}>{ingridient}</li>)
                     )}
                 </ul>
-
                 <div className={styles.button}><h5>Шаги</h5>{!visibleStepBtn &&
                     <button onClick={() => setVisibleStepBtn(true)}>Добавить</button>}</div>
                 {visibleStepBtn &&
@@ -85,10 +94,9 @@ const Form: React.FC<ChildProps>  = ({clickOutside, edit}) => {
                         (<li key={index}>{step}</li>)
                     )}
                 </ul>
-
                 <div className={styles['message']}> {message}</div>
                 <div className={styles['btn-group']}>
-                    <button className={styles['btn-cancel']} onClick={clickOutside}>Отмена</button>
+                    <button className={styles['btn-cancel']} onClick={()=>clickOutside(false)} >Отмена</button>
                     <button className={styles.btn} type="submit">Сохранить</button>
                 </div>
             </form>

@@ -1,24 +1,31 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
-import {filterRecipe} from "@/features/recipes/recipesSlice.ts";
+import {filterRecipe} from "@/entities/recipe/model/recipesSlice.ts";
 import styles from './FilterField.module.css';
 import {useTypedSelector} from "@/shared/hooks/TypedUseSelectorHook.ts";
+import {useAppDispatch} from "@/shared/hooks/UseAppDispatch.ts";
 
 
 const FilterField: React.FC = () => {
+
     const [search, setSearch] = useState<string>('');
-    const dispatch = useDispatch();
-    const getSearch = ((e:React.ChangeEvent<HTMLInputElement>):void => {
+
+    const dispatch = useAppDispatch();
+
+    const recipes = useTypedSelector((state) => state.recipesList.recipes);
+
+    let searchQuery = useTypedSelector((state) => state.recipesList.searchQuery);
+
+    const getSearch = ((e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearch(e.target.value);
         dispatch(filterRecipe(e.target.value));
     })
-    const {recipes} = useTypedSelector((state) => state);
-    let {searchQuery} = useTypedSelector((state) => state);
-    const arrIngredients:string[] =recipes&&recipes.length?recipes.map((i) => i.ingredients).flat():[];
-    const filteredItems = [...new Set(searchQuery ? (arrIngredients && arrIngredients.length ? arrIngredients.filter((item:string) => {
+
+    const arrIngredients: string[] = recipes && recipes.length ? recipes.map((i) => i.ingredients).flat() : [];
+
+    const filteredItems = [...new Set(searchQuery ? (arrIngredients && arrIngredients.length ? arrIngredients.filter((item: string) => {
         return item.toLowerCase().includes(searchQuery.toLowerCase())
-    }).map((i:string) => i.toLowerCase()) : []) : [])];
-    console.log("filteredItems",filteredItems)
+    }).map((i: string) => i.toLowerCase()) : []) : [])];
+
     return (
         <>
             <input className={styles.field} placeholder="Поиск" value={search} onChange={(e) => getSearch(e)}></input>
