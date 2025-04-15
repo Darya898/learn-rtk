@@ -1,9 +1,9 @@
-import React from 'react';
+
 import {Recipe} from "@/shared/types/type.ts";
 import {useTypedSelector} from "@/shared/hooks/TypedUseSelectorHook.ts";
 import CardResipe from "@/entities/recipe/ui/CardResipe.tsx";
 
-const FavoriteList:React.FC = () => {
+const FavoriteList = () => {
     const favoriteList = useTypedSelector(state => state.recipesList.favoriteList);
     return (
         <div>

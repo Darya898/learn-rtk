@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {deleteRecipe} from "@/entities/recipe/model/recipesSlice.ts"
 import { Recipe} from "@/shared/types/type.ts";
 import {useAppDispatch} from "@/shared/hooks/UseAppDispatch.ts";
@@ -7,7 +7,7 @@ export interface ChildProps {
     clickOutside: (flag:boolean) => void; // Функция, принимающая строку и ничего не возвращающая
 }
 
-const FormDelete: React.FC<ChildProps> = ({clickOutside,edit}) => {
+const FormDelete = ({clickOutside,edit}:ChildProps) => {
 
     const dispatch=useAppDispatch();
     const deleteRecipeItem=()=>{

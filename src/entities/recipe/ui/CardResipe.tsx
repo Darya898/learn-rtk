@@ -3,10 +3,11 @@ import styles from "./CardResipe.module.css";
 import Favorite from "@/pages/RecipePage/ui/img/Favorite.tsx";
 import {Recipe} from "@/shared/types/type.ts";
 import {addFavoriteRecipe, changeFavoriteRecipe} from "@/entities/recipe/model/recipesSlice.ts";
-import Modal from "@/shared/hooks/modalWindow/Modal.tsx";
+import Modal from "@/shared/ui/modalWindow/Modal.tsx";
 import Form from "@/shared/Form/Form.tsx";
 import FormDelete from "@/shared/FormDelete/FormDelete.tsx";
 import {useAppDispatch} from "@/shared/hooks/UseAppDispatch.ts";
+import {initialRecipeState} from "@/shared/initialRecipeState/initialRecipeState.tsx";
 
 const CardResipe  = (recipe: Recipe) => {
 
@@ -14,24 +15,16 @@ const CardResipe  = (recipe: Recipe) => {
 
     const [isConfirm, setIsConfirm] = useState<boolean>(false);
 
-    const [edit, setEdit] = useState<Recipe>(() => {
-        return {
-            id: 0,
-            name: '',
-            ingredients: [],
-            steps: [],
-            favorite: false
-        }
-    });
+    const [edit, setEdit] = useState<Recipe>(initialRecipeState);
 
     const [isVisibleDelete, setIsVisibleDelete] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        let timer: number;
+        let timer: ReturnType<typeof setTimeout>;
         if (isConfirm) {
-            timer = window.setTimeout(() => {
+            timer = setTimeout(() => {
                 setIsConfirm(false);
             }, 1000)
         }
@@ -55,13 +48,7 @@ const CardResipe  = (recipe: Recipe) => {
     }
     const activeEdit = (flag:boolean): void => {
         setIsVisible(prev => !prev);
-        setEdit({
-            id: 0,
-            name: '',
-            ingredients: [],
-            steps: [],
-            favorite: false
-        });
+        setEdit(initialRecipeState);
         if(flag){
             setIsConfirm(true);
         }
@@ -69,13 +56,7 @@ const CardResipe  = (recipe: Recipe) => {
     }
     const activeDelete = (): void => {
         setIsVisibleDelete(prev => !prev);
-        setEdit({
-            id: 0,
-            name: '',
-            ingredients: [],
-            steps: [],
-            favorite: false
-        });
+        setEdit(initialRecipeState);
     }
 
     return (
@@ -84,7 +65,7 @@ const CardResipe  = (recipe: Recipe) => {
                 <div>
                     <span className={styles['recipe-name']}>{recipe.name}</span>
                     <button className={styles['recipe-btn']} onClick={() => addFavorite(recipe)}>
-                        <Favorite fill={recipe.favorite ? '#ffe719' : '#ffe71900'}></Favorite>
+                        <Favorite fill={recipe.favorite ? '#ffe719' : '#ffe71900'}/>
                     </button>
                     <div className={styles['recipe-ingridients']}>
                         <span>Ингридиенты:</span> {recipe.ingredients.join(', ')}

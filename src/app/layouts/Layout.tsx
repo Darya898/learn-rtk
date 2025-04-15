@@ -1,11 +1,10 @@
 import {Outlet} from "react-router-dom";
 import Nav from "../../widgets/Nav/ui/Nav.tsx";
-import React from "react";
 
-const Layout: React.FC = () => {
+const Layout= () => {
     return (
         <div>
-            <Nav></Nav>
+            <Nav/>
             <main>
                 <Outlet/>
             </main>

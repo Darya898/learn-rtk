@@ -8,9 +8,14 @@ export interface RecipesState {
     searchQuery: string,
     favoriteList: Recipe[],
 }
+const getDataFromLS=(key:string)=>{
+    if(localStorage[key]){
+        return JSON.parse(localStorage[key])
+    }
+}
 
 const preloadedState: RecipesState = {
-    recipes: [
+    recipes: getDataFromLS('recipes')||[
         {
             id: 1,
             name: "Паста Карбонара",
@@ -20,7 +25,7 @@ const preloadedState: RecipesState = {
         },
     ],
     searchQuery: '',
-    favoriteList: []
+    favoriteList: getDataFromLS('favorite')||[]
 };
 const recipesSlice = createSlice({
         name: 'recipes',
@@ -70,19 +75,19 @@ const recipesSlice = createSlice({
             },
 
             addFavoriteRecipe: (state, action) => {
-                const index = state.favoriteList.findIndex(recipe => recipe.id == action.payload.id);
+                const index = state.favoriteList.findIndex(recipe => recipe.id === action.payload.id);
                 if (index == -1) {
                     state.favoriteList.push({...action.payload,favorite:true});
                     localStorage.setItem('favorite', JSON.stringify(state.favoriteList))
                 } else {
-                    let list = state.favoriteList.filter(recipe => !(recipe.id == action.payload.id));
+                    let list = state.favoriteList.filter(recipe => !(recipe.id === action.payload.id));
                     localStorage.setItem('favorite', JSON.stringify(list))
                     state.favoriteList = list;
                 }
             },
 
             deleteFavoriteRecipe: (state, action: PayloadAction<number>) => {
-                let list = state.favoriteList.filter(recipe => !(recipe.id == action.payload));
+                let list = state.favoriteList.filter(recipe => !(recipe.id === action.payload));
                 localStorage.setItem('favorite', JSON.stringify(list))
                 state.favoriteList = list;
             },
@@ -91,7 +96,7 @@ const recipesSlice = createSlice({
                 state.favoriteList = action.payload;
                 state.recipes = state.recipes.map(recipe => ({
                     ...recipe,
-                    favorite: state.favoriteList.find(f => f.id == recipe.id) ? true : false
+                    favorite: state.favoriteList.some(f => f.id === recipe.id)
                 }))
             }
         },

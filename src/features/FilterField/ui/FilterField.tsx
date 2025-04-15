@@ -1,45 +1,43 @@
-import React, {useState} from 'react';
-import {filterRecipe} from "@/entities/recipe/model/recipesSlice.ts";
+import React, {useEffect, useState} from 'react';
 import styles from './FilterField.module.css';
 import {useTypedSelector} from "@/shared/hooks/TypedUseSelectorHook.ts";
+import {useSearchParams} from "react-router-dom";
+import ListFiltered from "@/features/FilterField/helpers/ListFiltered.tsx";
 import {useAppDispatch} from "@/shared/hooks/UseAppDispatch.ts";
+import {filterRecipe} from "@/entities/recipe/model/recipesSlice.ts";
 
 
-const FilterField: React.FC = () => {
+const FilterField = () => {
 
     const [search, setSearch] = useState<string>('');
 
-    const dispatch = useAppDispatch();
-
     const recipes = useTypedSelector((state) => state.recipesList.recipes);
 
-    let searchQuery = useTypedSelector((state) => state.recipesList.searchQuery);
+    const [query, setQueryParam] = useSearchParams();
+
+    const searchQuery = query.get('search') || '';
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        setSearch(searchQuery);
+        dispatch(filterRecipe(searchQuery))
+    }, [searchQuery]);
 
     const getSearch = ((e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearch(e.target.value);
-        dispatch(filterRecipe(e.target.value));
+        if (e.target.value) {
+            query.set('search', e.target.value)
+        } else {
+            query.delete('search')
+        }
+        setQueryParam(query);
+        dispatch(filterRecipe(searchQuery))
     })
-
-    const arrIngredients: string[] = recipes && recipes.length ? recipes.map((i) => i.ingredients).flat() : [];
-
-    const filteredItems = [...new Set(searchQuery ? (arrIngredients && arrIngredients.length ? arrIngredients.filter((item: string) => {
-        return item.toLowerCase().includes(searchQuery.toLowerCase())
-    }).map((i: string) => i.toLowerCase()) : []) : [])];
-
     return (
         <>
             <input className={styles.field} placeholder="Поиск" value={search} onChange={(e) => getSearch(e)}></input>
-            {searchQuery && (
-                <ul>
-                    {filteredItems.length > 0 ? (
-                        filteredItems.map((item) => (
-                            <li key={item}>{item}</li>
-                        ))
-                    ) : (
-                        <li>Нет результатов</li>
-                    )}
-                </ul>
-            )}
+            {searchQuery && (<ListFiltered recipes={recipes} searchQuery={searchQuery}/>)}
         </>
     );
 };

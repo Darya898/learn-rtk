@@ -1,10 +1,23 @@
-.nav{
+.nav {
     margin-bottom: 20px;
 }
-.nav-list{
+
+.nav-list {
     display: flex;
     align-items: center;
 }
-.nav-list__item{
+
+.nav-list__item {
     margin-right: 10px;
+}
+
+.nav-link {
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+.active {
+    background: #1a1a1a;
+    border: 1px solid #1a1a1a;
+
 }

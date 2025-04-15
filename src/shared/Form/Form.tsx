@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import styles from './Form.module.css'
-import ApplyBtn from "@/shared/Form/img/ApplyBtn.tsx";
+import ApplyBtn from "@/shared/ui/applyBtn/ApplyBtn.tsx";
 import {addRecipe, editRecipe} from "../../entities/recipe/model/recipesSlice.ts";
 import {Recipe} from "@/shared/types/type.ts";
 import {ChildProps} from "@/shared/FormDelete/FormDelete.tsx";
 import {useAppDispatch} from "@/shared/hooks/UseAppDispatch.ts";
 
 
-const Form: React.FC<ChildProps> = ({clickOutside, edit}) => {
+const Form= ({clickOutside, edit}:ChildProps) => {
 
-    const [message, setMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const [recipe, setRecipe] = useState<Recipe>(edit)
 
@@ -34,16 +34,16 @@ const Form: React.FC<ChildProps> = ({clickOutside, edit}) => {
     }
     const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (recipe.name && recipe.steps && recipe.ingredients) {
+        if (recipe.name && recipe.steps&&recipe.steps.length && recipe.ingredients&& recipe.ingredients.length) {
             clickOutside(true);
-            setMessage('');
+            setErrorMessage('');
             if (edit.id) {
                 dispatch(editRecipe(recipe));
             } else {
                 dispatch(addRecipe({...recipe, id: new Date().getTime()}))
             }
         } else {
-            setMessage('Заполните все поля')
+            setErrorMessage('Заполните все поля')
         }
     }
 
@@ -61,7 +61,6 @@ const Form: React.FC<ChildProps> = ({clickOutside, edit}) => {
                     <button onClick={() => setVisible(true)}>Добавить</button>}
                 </div>
                 {visible &&
-                    <>
                         <div>
                             <input className={styles.field} id="ingridient" value={ingridient}
                                    onChange={(e) => setIngridient(e.target.value)}></input>
@@ -69,7 +68,6 @@ const Form: React.FC<ChildProps> = ({clickOutside, edit}) => {
                                 <ApplyBtn></ApplyBtn>
                             </button>
                         </div>
-                    </>
                 }
                 <ul>
                     {recipe.ingredients.map((ingridient, index) =>
@@ -94,7 +92,7 @@ const Form: React.FC<ChildProps> = ({clickOutside, edit}) => {
                         (<li key={index}>{step}</li>)
                     )}
                 </ul>
-                <div className={styles['message']}> {message}</div>
+                <div className={styles['message']}> {errorMessage}</div>
                 <div className={styles['btn-group']}>
                     <button className={styles['btn-cancel']} onClick={()=>clickOutside(false)} >Отмена</button>
                     <button className={styles.btn} type="submit">Сохранить</button>
