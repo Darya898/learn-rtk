@@ -1,2 +1,2 @@
-import FavoriteList from "./ui/FavoriteList.tsx";
-export {FavoriteList};
+import FavoriteList from './ui/FavoriteList.tsx';
+export { FavoriteList };

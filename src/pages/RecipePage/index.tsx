@@ -1,2 +1,2 @@
-import RecipePage from "./ui/RecipePage.tsx";
-export {RecipePage};
+import RecipePage from './ui/RecipePage.tsx';
+export { RecipePage };

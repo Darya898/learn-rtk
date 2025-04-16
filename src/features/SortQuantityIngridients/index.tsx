@@ -1,2 +1,2 @@
-import SortQuantityIngridients from "@/features/SortQuantityIngridients/ui/SortQuantityIngridients.tsx";
-export {SortQuantityIngridients};
+import SortQuantityIngridients from '@/features/SortQuantityIngridients/ui/SortQuantityIngridients.tsx';
+export { SortQuantityIngridients };

@@ -1,2 +1,2 @@
-import NotFound from "./ui/NotFound.tsx";
-export {NotFound};
+import NotFound from './ui/NotFound.tsx';
+export { NotFound };

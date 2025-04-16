@@ -1,67 +1,67 @@
-.form{
-    display: flex;
-    flex-direction: column;
+.form {
+  display: flex;
+  flex-direction: column;
 }
-.field{
-    padding: 4px 8px;
-    border-radius: 4px;
+.field {
+  padding: 4px 8px;
+  border-radius: 4px;
 }
-.label{
-    background: transparent;
-    color: #fff;
-    font-size: 18px;
-    margin-top: 20px;
-    padding: 6px 8px;
-    border-radius: 4px;
+.label {
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  margin-top: 20px;
+  padding: 6px 8px;
+  border-radius: 4px;
 }
-.textarea{
-    background: transparent;
-    color: #fff;
-    font-size: 18px;
-    margin-top: 20px;
-    padding: 6px 8px;
-    border-radius: 4px;
-    resize: none;
+.textarea {
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  margin-top: 20px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  resize: none;
 }
-.option{
-    background: #141414;
+.option {
+  background: #141414;
 }
-.btn-group{
-    margin-top: 20px;
-    margin-left: auto;
+.btn-group {
+  margin-top: 20px;
+  margin-left: auto;
 }
-.btn{
-    border: none;
-    border-radius: 8px;
-    padding: 18px 24px;
-    cursor: pointer;
-    color:#fff;
-    font-size: 16px;
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 18px 24px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
 }
-.btn-cancel{
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color:#fff;
-    font-size: 16px;
-    padding: 18px 24px;
+.btn-cancel {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  padding: 18px 24px;
 }
-.message{
-    color: red;
-    font-size: 16px;
-    padding: 6px 2px;
-    height: 16px;
+.message {
+  color: red;
+  font-size: 16px;
+  padding: 6px 2px;
+  height: 16px;
 }
-.option-disabled{
-    color:#ccc
+.option-disabled {
+  color: #ccc;
 }
-.button{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }
-.btn-add{
-    padding: 8px;
-    margin-left: 4px;
+.btn-add {
+  padding: 8px;
+  margin-left: 4px;
 }
